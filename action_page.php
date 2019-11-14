@@ -10,24 +10,24 @@
  		}
  	</style>
  </head>
- 
+
  <body>
  	<h1>Exemple de lectura de dades a MySQL</h1>
- 	
+
  	<?php
  		$cod = $_POST['cd'];
  		# (1.1) Connectem a MySQL (host,usuari,contrassenya)
  		$conn = mysqli_connect('localhost','paco','Admin1234');
- 
+
  		# (1.2) Triem la base de dades amb la que treballarem
  		mysqli_select_db($conn, 'world');
- 
+
  		# (2.1) creem el string de la consulta (query)
  		$consulta = "select * from city where CountryCode='" . $cod . "';";
- 
+
  		# (2.2) enviem la query al SGBD per obtenir el resultat
  		$resultat = mysqli_query($conn, $consulta);
- 
+
  		# (2.3) si no hi ha resultat (0 files o bé hi ha algun error a la sintaxi)
  		#     posem un missatge d'error i acabem (die) l'execució de la pàgina web
  		if (!$resultat) {
@@ -45,23 +45,23 @@
  		while( $registre = mysqli_fetch_assoc($resultat) )
  		{
  			# els \t (tabulador) i els \n (salt de línia) son perquè el codi font quedi llegible
-  
+
  			# (3.3) obrim fila de la taula HTML amb <tr>
  			echo "\t<tr>\n";
- 
+
  			# (3.4) cadascuna de les columnes ha d'anar precedida d'un <td>
  			#	després concatenar el contingut del camp del registre
  			#	i tancar amb un </td>
  			echo "\t\t<td>".$registre["Name"]."</td>\n";
  			echo "\t\t<td>".$registre["CountryCode"]."</td>\n";
- 			
- 			
+
+
  			# (3.5) tanquem la fila
  			echo "\t</tr>\n";
  		}
  	?>
   	<!-- (3.6) tanquem la taula -->
- 	</table>	 
- 	
+ 	</table>
+
  </body>
 </html>
